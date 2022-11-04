@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  ###> doctrine/doctrine-bundle ###
+  database:
+    image: mariadb:10.9
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database
+    ports:
+      - '3306'
+    volumes:
+      - db_data:/var/lib/mysql
+
+  php:
+    build:
+      context: php
+      args:
+        SYMFONY_VERSION: ${SYMFONY_VERSION:-}
+        STABILITY: ${STABILITY:-stable}
+    ports:
+      - '9000'
+    volumes:
+      - ../:/var/www/html
+    depends_on:
+      - database
+
+  nginx:
+    image: nginx:1.23-alpine
+    ports:
+      - '8080:80'
+    volumes:
+      - ../:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - database
+
+volumes:
+  db_data:

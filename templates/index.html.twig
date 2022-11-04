@@ -1,0 +1,17 @@
+ {% extends "base.html.twig" %}
+
+ {% block title %}
+
+ {% endblock %}
+
+ {% block body %}
+ <h1>
+      {% for cat_type in cat_types %}
+       <li>
+        {{ cat_type }}
+       </li>
+      {% endfor %}
+ </h1>
+
+     {{ author }}
+ {% endblock %}

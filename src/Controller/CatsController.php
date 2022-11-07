@@ -108,7 +108,6 @@ class CatsController extends AbstractController
             } else {
                 $cat->setName($form->get('name')->getData());
                 $cat->setDescription($form->get('description')->getData());
-                $cat->setImagePath('No picture');
 
                 $this->entityManager->flush();
                 $this->redirectToRoute('cats');

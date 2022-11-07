@@ -58,6 +58,8 @@ class CatsController extends AbstractController
                 }
 
                 $newCat->setImagePath('public/uploads/' . $newFileName);
+            } else {
+                $cat->setImagePath('No picture');
             }
 
             $this->entityManager->persist($newCat);
@@ -97,7 +99,7 @@ class CatsController extends AbstractController
                             return new Response($error->getMessage());
                         }
 
-                        $cat->setDescription('/uploads' . $newFileName);
+                        $cat->setImagePath('/uploads' . $newFileName);
                         $this->entityManager->flush();
 
                         return $this->redirectToRoute('cats');
@@ -106,6 +108,7 @@ class CatsController extends AbstractController
             } else {
                 $cat->setName($form->get('name')->getData());
                 $cat->setDescription($form->get('description')->getData());
+                $cat->setImagePath('No picture');
 
                 $this->entityManager->flush();
                 $this->redirectToRoute('cats');

@@ -6,19 +6,30 @@ use App\Repository\CatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CatRepository::class)]
 class Cat
 {
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('description', new Assert\Length([
+            'min' => 5,
+            'max' => 150,
+            'minMessage' => 'Cat post text has to be at least {{ limit }} characters long',
+            'maxMessage' => 'Cat post text cannot be longer than {{ limit }} characters',
+        ]));
+    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 30)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 150)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
@@ -53,8 +64,7 @@ class Cat
     {
         return $this->description;
     }
-
-    public function setDescription(string $description): self
+     public function setDescription(string $description): self
     {
         $this->description = $description;
 

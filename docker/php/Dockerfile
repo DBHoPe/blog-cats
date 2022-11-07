@@ -37,4 +37,5 @@ RUN npm install -D tailwindcss postcss-loader purgecss-webpack-plugin glob-all p
 RUN npx tailwindcss init -p
 RUN npm install autoprefixer
 
+# run manually: composer install
 # run manually: npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css

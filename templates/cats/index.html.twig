@@ -8,18 +8,21 @@
    </h1>
 
    <span class="font-light text-gray-500 italic">
-                Created by DbHope
+                Created by HoPe
             </span>
   </div>
  </div>
 
- <div class="mx-auto w-4/5 my-8">
-  <a
-          href="/{{ path('cats') }}/create"
-          class="uppercase border border-gray-500 text-lg py-4 px-6 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800">
-   Create New cat
-  </a>
- </div>
+{% if app.user %}
+    <div class="mx-auto w-4/5 my-8">
+        <a
+                href="{{ path('create_cats') }}"
+                class="uppercase border border-gray-500 text-lg py-4 px-6 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800">
+            Add new cat
+        </a>
+    </div>
+{% endif %}
+
  <div class="md:grid lg:grid-cols-3 gap-20 w-4/5 mx-auto py-15 ">
   <!-- Review Item -->
   {% for cat in cats %}
@@ -35,7 +38,7 @@
     </h2>
 
     <span class="text-gray-500">
-                    By <span class="italic text-sm text-gray-800">DbHope | 28.01.2022
+                    By <span class="italic text-sm text-gray-800">HoPe | 7.11.2022
                 </span>
 
                 <p class="text-base text-gray-700 pt-4 pb-10 leading-8 font-light">
